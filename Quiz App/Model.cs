@@ -62,6 +62,9 @@ namespace Model
             }
             catch(FileNotFoundException)
             {
+                string text = "1|What Year is it this Year|Choice|A. 2019|B. 2020|C. 2021|D. 2022|C\n"+
+                          "2|This class is Awesome.|TF|1";
+                File.WriteAllText("questions.txt", text);
                 throw new Exception("File not found");
             }
         }
