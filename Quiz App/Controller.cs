@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Model;
 
 namespace Quiz_App
 {
@@ -24,6 +25,10 @@ namespace Quiz_App
             {
                 MessageBox.Show($"{q.Id} {q.Text}");
             }
+        }
+        public Question GetPreviousQuestion()
+        {
+            return questions[0];
         }
     }
 }

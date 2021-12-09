@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Model;
 
 namespace Quiz_App
 {
@@ -24,7 +25,9 @@ namespace Quiz_App
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-
+            Question q = control.GetPreviousQuestion();
+            SetQuestion(q.Text);
+            SetOptions(q.Choices);
         }
         private void answersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
