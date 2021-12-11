@@ -10,25 +10,54 @@ namespace Quiz_App
 {
     class Controller
     {
-        public Model.Progress progress= new Model.Progress();
-        public List<Model.Question> questions = new List<Model.Question>();
+        public Progress progress= new Progress();
+        public List<Question> questions = new List<Question>();
 
         public Controller()
         {
-            Model.LoadQuestions loader = new Model.LoadQuestions("questions.txt");
+            LoadQuestions loader = new LoadQuestions("questions.txt");
             questions = loader.Questions;
+            progress.Index = 0;
+            progress.MaxQuestions = questions.Count();
         }
 
         public void printQuesitons()
         {
-            foreach(Model.Question q in questions)
+            foreach(Question q in questions)
             {
                 MessageBox.Show($"{q.Id} {q.Text}");
             }
         }
         public Question GetPreviousQuestion()
         {
-            return questions[0];
+            if (progress.Index == 0)
+            {
+                return questions[0];
+            }
+            progress.Index -= 1;
+            return questions[progress.Index];
+        }
+        public Question GetNextQuestion()
+        {
+            if (progress.Index == progress.MaxQuestions-1)
+            {
+                return questions[progress.Index];
+            }
+            progress.Index += 1;
+            return questions[progress.Index];
+        }
+        public void SaveQuestion(Question q, int item)
+        {
+            MessageBox.Show(item.ToString());
+            progress.SavedAnswers.Add(q, item);
+        }
+        public int? GetQuestionAnswer(Question q)
+        {
+            if (progress.SavedAnswers.ContainsKey(q))
+            {
+                return progress.SavedAnswers[q];
+            }
+            return null;
         }
     }
 }

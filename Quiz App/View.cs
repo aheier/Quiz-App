@@ -11,6 +11,8 @@ namespace Quiz_App
     partial class View : Form
     {
         Controller control;
+        Question currentQuestion;
+        int currentAnswer;
         public View()
         {
             InitializeComponent();
@@ -19,19 +21,26 @@ namespace Quiz_App
 
         public void buttonNext_Click(object sender, EventArgs e)
         {
-            questionBox.Text = "HI click ";
+            currentQuestion = control.GetNextQuestion();
+            SetQuestion(currentQuestion.Text);
+            SetOptions(currentQuestion.Choices);
 
         }
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
-            Question q = control.GetPreviousQuestion();
-            SetQuestion(q.Text);
-            SetOptions(q.Choices);
+            currentQuestion = control.GetPreviousQuestion();
+            if(control.GetQuestionAnswer(currentQuestion) != null)
+            {
+                currentAnswer = (int)(control.GetQuestionAnswer(currentQuestion));
+            }
+            SetQuestion(currentQuestion.Text);
+            SetOptions(currentQuestion.Choices);
+            SetOptionsSelectedIndex(currentAnswer);
         }
         private void answersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            control.SaveQuestion(currentQuestion, answersBox.SelectedIndex);
         }
 
         public void SetQuestion(string question)
@@ -46,6 +55,9 @@ namespace Quiz_App
                 answersBox.Items.Add(option);
             }
         }
-
+        public void SetOptionsSelectedIndex(int index)
+        {
+            answersBox.SelectedIndex = index;
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace Model
     public class Progress
     {
         public int Index { get; set; }
-        public int MaxQuestions { get; }
+        public int MaxQuestions { get; set; }
 
         public Dictionary<Question, int> SavedAnswers { get; set;}
 
