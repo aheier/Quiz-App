@@ -30,6 +30,7 @@ namespace Quiz_App
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.buttonPrevious = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
@@ -37,11 +38,14 @@ namespace Quiz_App
             this.labelSelected = new System.Windows.Forms.Label();
             this.questionBox = new System.Windows.Forms.RichTextBox();
             this.labelQuestion = new System.Windows.Forms.Label();
+            this.buttonFinish = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.labelTimer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(476, 12);
+            this.progressBar.Location = new System.Drawing.Point(460, 12);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(312, 23);
             this.progressBar.TabIndex = 0;
@@ -115,12 +119,39 @@ namespace Quiz_App
             this.labelQuestion.TabIndex = 10;
             this.labelQuestion.Text = "Question : ";
             // 
-            // App
+            // buttonFinish
+            // 
+            this.buttonFinish.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFinish.Location = new System.Drawing.Point(652, 383);
+            this.buttonFinish.Name = "buttonFinish";
+            this.buttonFinish.Size = new System.Drawing.Size(120, 40);
+            this.buttonFinish.TabIndex = 11;
+            this.buttonFinish.Text = "Finish";
+            this.buttonFinish.UseVisualStyleBackColor = true;
+            this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // labelTimer
+            // 
+            this.labelTimer.AutoSize = true;
+            this.labelTimer.Location = new System.Drawing.Point(304, 13);
+            this.labelTimer.Name = "labelTimer";
+            this.labelTimer.Size = new System.Drawing.Size(89, 13);
+            this.labelTimer.TabIndex = 12;
+            this.labelTimer.Text = "Time Remaining: ";
+            // 
+            // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.labelTimer);
+            this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.questionBox);
             this.Controls.Add(this.labelSelected);
@@ -128,7 +159,7 @@ namespace Quiz_App
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.progressBar);
-            this.Name = "App";
+            this.Name = "View";
             this.Text = "Quiz App";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -144,6 +175,11 @@ namespace Quiz_App
         public System.Windows.Forms.Label labelSelected;
         public System.Windows.Forms.RichTextBox questionBox;
         public System.Windows.Forms.Label labelQuestion;
+        public System.Windows.Forms.Button buttonFinish;
+        private System.Windows.Forms.Timer timer1;
+
+        private System.Windows.Forms.Label labelTimer;
+
     }
 }
 

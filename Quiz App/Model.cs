@@ -18,17 +18,20 @@ namespace Model
             TF
         }
         public Type QuestionType { get; set; } 
-        public bool TrueFalse { get; set; }
         public List<string> Choices { get; set; }
 
         public char Answer { get; set; }
+        public string SelectedAnswer { get; set; }
 
         public Question(int id, string text, bool tf)
         {
             Id = id;
             Text = text;
-            TrueFalse = tf;
             Answer = tf ? 'T' : 'F' ;
+            QuestionType = Type.TF;
+            Choices = new List<string>();
+            Choices.Add("True");
+            Choices.Add("False");
         }
         public Question(int id, string text, List<string> options, char answer)
         {
@@ -36,6 +39,7 @@ namespace Model
             Text = text;
             Choices = options;
             Answer = answer;
+            QuestionType = Type.Choice;
         }
 
     }
@@ -45,7 +49,7 @@ namespace Model
         public int Index { get; set; }
         public int MaxQuestions { get; set; }
 
-        public Dictionary<Question, int> SavedAnswers { get; set;}
+        public int AnseredQuesitons { get; set; }
 
     }
 
@@ -71,36 +75,44 @@ namespace Model
         public void LoadQuestionsFromFile(string path, List<Question> Questions)
         {
             string[] textFile = File.ReadAllLines(path);
+            //MessageBox.Show(File.ReadAllText(path));
             foreach (string line in textFile)
             {
 
                 string[] items = line.Split('|');
-                if (items[2] == "Choice")
+                try
                 {
-                    List<string> choices = new List<string>();
-                    for (int idx = 3; idx < 7; idx++)
+                    if (items[2].Trim() == "Choice")
                     {
-                        choices.Add(items[idx]);
+                        List<string> choices = new List<string>();
+                        for (int idx = 3; idx < 7; idx++)
+                        {
+                            choices.Add(items[idx].Trim());
+                        }
+                        Question q = new Question(
+                            id: Convert.ToInt32(items[0].Trim()),
+                            text: items[1].Trim(),
+                            options: choices,
+                            answer: Convert.ToChar(items[7].Trim())
+                            );
+                        Questions.Add(q);
                     }
-                    Question q = new Question(
-                        id: Convert.ToInt32(items[0]),
-                        text: items[1],
-                        options: choices,
-                        answer: Convert.ToChar(items[7])
-                        );
-                    Questions.Add(q);
-                    return;
+                    if (items[2].Trim() == "TF")
+                    {
+                        Questions.Add(new Question(
+                            id: Convert.ToInt32(items[0].Trim()),
+                            text: items[1].Trim(),
+                            tf: Convert.ToBoolean(Convert.ToInt32(items[3].Trim()))
+                            ));
+                    }
                 }
-                if (items[2] == "TF")
+                catch
                 {
-                    Questions.Add(new Question(
-                        id: Convert.ToInt32(items[0]),
-                        text: items[1],
-                        tf: Convert.ToBoolean(items[3])
-                        ));
+                    MessageBox.Show($"A question could not be created: {line}");
                 }
             }
         }
+        
 
     }
 }

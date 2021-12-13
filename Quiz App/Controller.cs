@@ -12,15 +12,32 @@ namespace Quiz_App
     {
         public Progress progress= new Progress();
         public List<Question> questions = new List<Question>();
+        public int correctAnswers = 0;
+        public List<Question> wrongAnswers = new List<Question>();
 
         public Controller()
         {
-            LoadQuestions loader = new LoadQuestions("questions.txt");
-            questions = loader.Questions;
+            LoadQuestions loader;
+            try
+            {
+                loader = new LoadQuestions("questions.txt");
+                questions = loader.Questions;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             progress.Index = 0;
             progress.MaxQuestions = questions.Count();
         }
-
+        public void AddProgress()
+        {
+            progress.AnseredQuesitons++;
+        }
+        public int GetProgress()
+        {
+            return progress.AnseredQuesitons;
+        }
         public void printQuesitons()
         {
             foreach(Question q in questions)
@@ -46,18 +63,31 @@ namespace Quiz_App
             progress.Index += 1;
             return questions[progress.Index];
         }
-        public void SaveQuestion(Question q, int item)
+        public void CheckAnswers()
         {
-            MessageBox.Show(item.ToString());
-            progress.SavedAnswers.Add(q, item);
-        }
-        public int? GetQuestionAnswer(Question q)
-        {
-            if (progress.SavedAnswers.ContainsKey(q))
+            correctAnswers = 0;
+            wrongAnswers = new List<Question>();
+            foreach(Question q in questions)
             {
-                return progress.SavedAnswers[q];
+                if(q.SelectedAnswer == null)
+                {
+                    q.Choices.Add("No answer given");
+                    q.SelectedAnswer = "No answer given";
+                    wrongAnswers.Add(q);
+                    continue;
+                }
+                if(q.Answer == q.SelectedAnswer[0])
+                {
+                    correctAnswers++;
+                }
+                else
+                {
+                    wrongAnswers.Add(q);
+                }
             }
-            return null;
+            questions = wrongAnswers;
+            progress.Index = 0;
+            
         }
     }
 }
