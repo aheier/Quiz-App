@@ -15,7 +15,7 @@ namespace Quiz_App
         bool isFinished = false; 
         TimeSpan t = DateTime.Now - new DateTime(1970, 1, 1);
         int startTime;
-        readonly int maxTime = 10;//1800;
+        readonly int maxTime = 1800;
         public View()
         {
             InitializeComponent();
