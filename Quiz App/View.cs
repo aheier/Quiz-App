@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Model;
+using Control;
 
 namespace Quiz_App
 {
@@ -32,6 +33,7 @@ namespace Quiz_App
         public void buttonNext_Click(object sender, EventArgs e)
         {
             currentQuestion = control.GetNextQuestion();
+            labelQuestionNumber.Text = currentQuestion.Id.ToString();
             SetQuestion(currentQuestion.Text);
             SetOptions(currentQuestion.Choices);
             if(currentQuestion.SelectedAnswer != null)
@@ -95,7 +97,7 @@ namespace Quiz_App
         public void SetProgressBar()
         {
             progressBar.Value = control.GetProgress();
-            if(progressBar.Value == progressBar.Maximum)
+            if((progressBar.Value == progressBar.Maximum) && !isFinished)
             {
                 buttonFinish.Enabled = true;
             }
@@ -103,6 +105,7 @@ namespace Quiz_App
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
             control.CheckAnswers();
             MessageBox.Show($"Your Scored {control.correctAnswers} / {control.progress.MaxQuestions}");
             control.progress.MaxQuestions = control.questions.Count();
@@ -118,6 +121,7 @@ namespace Quiz_App
                 buttonFinish.Enabled = false;
             }
             answersBox.Enabled = false;
+            buttonFinish.Enabled = false;
         }
         private void timer1_Tick(object sender, System.EventArgs e)
         {

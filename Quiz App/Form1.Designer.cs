@@ -38,6 +38,7 @@ namespace Quiz_App
             this.labelSelected = new System.Windows.Forms.Label();
             this.questionBox = new System.Windows.Forms.RichTextBox();
             this.labelQuestion = new System.Windows.Forms.Label();
+            this.labelQuestionNumber = new System.Windows.Forms.Label();
             this.buttonFinish = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.labelTimer = new System.Windows.Forms.Label();
@@ -119,6 +120,16 @@ namespace Quiz_App
             this.labelQuestion.TabIndex = 10;
             this.labelQuestion.Text = "Question : ";
             // 
+            // labelQuestionNumber
+            // 
+            this.labelQuestionNumber.AutoSize = true;
+            this.labelQuestionNumber.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuestionNumber.Location = new System.Drawing.Point(124, 27);
+            this.labelQuestionNumber.Name = "labelQuestion";
+            this.labelQuestionNumber.Size = new System.Drawing.Size(40, 23);
+            this.labelQuestionNumber.TabIndex = 16;
+            this.labelQuestionNumber.Text = "1";
+            // 
             // buttonFinish
             // 
             this.buttonFinish.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -159,6 +170,7 @@ namespace Quiz_App
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.labelQuestionNumber);
             this.Name = "View";
             this.Text = "Quiz App";
             this.ResumeLayout(false);
@@ -177,6 +189,7 @@ namespace Quiz_App
         public System.Windows.Forms.Label labelQuestion;
         public System.Windows.Forms.Button buttonFinish;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Label   labelQuestionNumber;
 
         private System.Windows.Forms.Label labelTimer;
 

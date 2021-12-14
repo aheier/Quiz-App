@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Model;
 
-namespace Quiz_App
+namespace Control
 {
     class Controller
     {
