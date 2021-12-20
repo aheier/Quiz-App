@@ -125,20 +125,21 @@ namespace Quiz_App
             this.labelQuestionNumber.AutoSize = true;
             this.labelQuestionNumber.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuestionNumber.Location = new System.Drawing.Point(124, 27);
-            this.labelQuestionNumber.Name = "labelQuestion";
-            this.labelQuestionNumber.Size = new System.Drawing.Size(40, 23);
+            this.labelQuestionNumber.Name = "labelQuestionNumber";
+            this.labelQuestionNumber.Size = new System.Drawing.Size(21, 23);
             this.labelQuestionNumber.TabIndex = 16;
             this.labelQuestionNumber.Text = "1";
             // 
             // buttonFinish
             // 
+            this.buttonFinish.BackColor = System.Drawing.Color.Green;
             this.buttonFinish.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFinish.Location = new System.Drawing.Point(652, 383);
             this.buttonFinish.Name = "buttonFinish";
             this.buttonFinish.Size = new System.Drawing.Size(120, 40);
             this.buttonFinish.TabIndex = 11;
             this.buttonFinish.Text = "Finish";
-            this.buttonFinish.UseVisualStyleBackColor = true;
+            this.buttonFinish.UseVisualStyleBackColor = false;
             this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
             // 
             // timer1

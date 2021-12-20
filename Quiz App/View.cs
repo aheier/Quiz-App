@@ -16,7 +16,8 @@ namespace Quiz_App
         bool isFinished = false; 
         TimeSpan t = DateTime.Now - new DateTime(1970, 1, 1);
         int startTime;
-        readonly int maxTime = 1800;
+        readonly int maxTime = 450;
+        int totalQuestions = 0;
         public View()
         {
             InitializeComponent();
@@ -28,18 +29,22 @@ namespace Quiz_App
             buttonFinish.Enabled = false;
             timer1.Start();
             startTime = (int)t.TotalSeconds;
+            totalQuestions = control.progress.MaxQuestions;
         }
 
         public void buttonNext_Click(object sender, EventArgs e)
         {
+            buttonPrevious.Enabled = true;
             currentQuestion = control.GetNextQuestion();
-            labelQuestionNumber.Text = currentQuestion.Id.ToString();
             SetQuestion(currentQuestion.Text);
             SetOptions(currentQuestion.Choices);
-            if(currentQuestion.SelectedAnswer != null)
+            SetQuestionCounter(currentQuestion);
+            if (currentQuestion.SelectedAnswer != null)
             {
                 SetOptionsSelectedIndex(currentQuestion.SelectedAnswer);
                 SetOptionsCorrectAnswer(currentQuestion);
+                if (currentQuestion.Id == control.questions[control.questions.Count -1].Id)
+                    buttonNext.Enabled = false;
                 return;
             }
             buttonNext.Enabled = false;
@@ -53,6 +58,9 @@ namespace Quiz_App
             SetOptions(currentQuestion.Choices);
             SetOptionsSelectedIndex(currentQuestion.SelectedAnswer);
             SetOptionsCorrectAnswer(currentQuestion);
+            SetQuestionCounter(currentQuestion);
+            if (currentQuestion.Id == control.questions[0].Id)
+                buttonPrevious.Enabled = false;
         }
         private void answersBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -64,6 +72,8 @@ namespace Quiz_App
                 }
                 currentQuestion.SelectedAnswer = answersBox.SelectedItem.ToString();
                 buttonNext.Enabled = true;
+                if (currentQuestion.Id == control.questions[control.questions.Count - 1].Id)
+                    buttonNext.Enabled = false;
                 SetProgressBar();
             }
         }
@@ -92,7 +102,12 @@ namespace Quiz_App
             {
                 if(opt[0] == q.Answer)
                 answersBox.Items.Add($"Correct Answer: {opt}");
+                //answersBox.Items[answersBox.Items.Count-1].BackColor 
             }
+        }
+        public void SetQuestionCounter(Question q)
+        {
+            labelQuestionNumber.Text = $"{q.Id} / {totalQuestions}";
         }
         public void SetProgressBar()
         {
